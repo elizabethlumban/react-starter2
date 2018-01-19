@@ -8,6 +8,7 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "express": "^4.16.2",
+    "express-basic-auth": "^1.1.3",
     "helmet": "^3.9.0",
     "history": "^4.7.2",
     "jest-enzyme": "^4.0.2",
@@ -45,8 +46,7 @@
     "test-ci": "CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "start": "NODE_ENV=production node server.js",
-    "format":
-      "prettier --write '*.@(js|json)' 'client/src/**/*.@(js|json)' '@(server|test)/**/*.@(js|json)'"
+    "format": "prettier --write '*.@(js|json)' 'src/**/*.@(js|json)' '@(server|test)/**/*.@(js|json)'"
   },
   "engines": {
     "node": ">=8.9.3",
