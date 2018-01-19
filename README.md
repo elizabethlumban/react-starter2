@@ -19,7 +19,7 @@ The `react-redux-starter` project is a single page React/Redux app.
 It relies that a server `express-starter` is running.
 The following diagram depicts how it all fits together:
 
-<img src="raw/master/docs/Architectural Overview.jpg" alt="Architectural Overview" height="700px">
+<img src="https://git.ng.bluemix.net/bluemix-garage-melbourne/react-redux-starter/raw/master/docs/Architectural%20Overview.jpg" alt="Architectural Overview" height="700px">
 
 The end user requests arrive at the `react-redux-starter` endpoint.
 The web user interface is packaged as static web content (html,css,js etc.) 
