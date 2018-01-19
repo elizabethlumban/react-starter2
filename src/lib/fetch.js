@@ -1,4 +1,4 @@
-import * as _ from "lodash";
+import * as _ from 'lodash';
 
 const HTTP_METHODS = ['POST', 'PUT', 'GET', 'PATCH', 'DELETE'];
 
@@ -10,13 +10,13 @@ export function configure(logoutAction) {
 }
 
 function assertHTTPMethod(method) {
-    if(!_.includes(HTTP_METHODS, method)){
-        throw `Unknown HTTP method ${method}`
+    if (!_.includes(HTTP_METHODS, method)) {
+        throw `Unknown HTTP method ${method}`;
     }
 }
 
 export async function call(url, method = 'GET', body = undefined, headers = {}) {
-    assertHTTPMethod(method)
+    assertHTTPMethod(method);
 
     const result = await fetch(url, {
         method,
@@ -25,7 +25,7 @@ export async function call(url, method = 'GET', body = undefined, headers = {}) 
         credentials: 'same-origin'
     });
     if (result.ok) {
-        return result.text().then(body => body? JSON.parse(body) : {});
+        return result.text().then(body => (body ? JSON.parse(body) : {}));
     } else {
         return Promise.reject(result);
     }
@@ -38,7 +38,7 @@ export async function apiCall(path, method, body = undefined, extraHeaders = {})
 
         const headers = {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            Accept: 'application/json'
         };
 
         const url = encodeURI(path);

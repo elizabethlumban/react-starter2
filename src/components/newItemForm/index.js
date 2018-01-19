@@ -1,11 +1,10 @@
-import React, { Component } from "react";
-import { Form, Field, reduxForm } from "redux-form";
-import RaisedButton from "material-ui/RaisedButton";
-import { TextField } from "redux-form-material-ui";
+import React, { Component } from 'react';
+import { Form, Field, reduxForm } from 'redux-form';
+import RaisedButton from 'material-ui/RaisedButton';
+import { TextField } from 'redux-form-material-ui';
 import PropTypes from 'prop-types';
 
 class NewItemForm extends Component {
-
     render() {
         const { handleSubmit, pristine, submitting, reset, onSubmit } = this.props;
 
@@ -19,11 +18,7 @@ class NewItemForm extends Component {
                     disabled={pristine || submitting}
                     primary
                 />
-                <RaisedButton
-                    label="Cancel"
-                    disabled={pristine || submitting}
-                    onClick={reset}
-                />
+                <RaisedButton label="Cancel" disabled={pristine || submitting} onClick={reset} />
             </Form>
         );
     }
@@ -37,4 +32,4 @@ NewItemForm.propTypes = {
     onSubmit: PropTypes.func
 };
 
-export default reduxForm({ form: "new-item-form" })(NewItemForm);
+export default reduxForm({ form: 'new-item-form' })(NewItemForm);

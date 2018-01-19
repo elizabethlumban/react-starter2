@@ -35,17 +35,19 @@ app.use('/api', (req, res) => {
 // Set up basic auth
 const user = process.env.BASIC_AUTH_USER || 'admin';
 const pass = process.env.BASIC_AUTH_PASS || 'admin';
-app.use(basicAuth({
-    users: { [user]: `${pass}` },    
-    challenge: true,
-    realm: 'Imb4T3st4pp'
-}));
+app.use(
+    basicAuth({
+        users: { [user]: `${pass}` },
+        challenge: true,
+        realm: 'Imb4T3st4pp'
+    })
+);
 
 // Serve the static content
 app.use(express.static(path.join(__dirname, 'build')));
 
 // Direct all requests to the main page so they can be handled by React Router
-app.get('/*', function(req, res) {
+app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 

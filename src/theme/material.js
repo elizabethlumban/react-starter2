@@ -1,5 +1,13 @@
-import lightBaseTheme from "material-ui/styles/baseThemes/lightBaseTheme";
-import { darkGray, accentColor, gray, primaryColor, unselectedWhite, white, disabledInputGray } from "./colors";
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import {
+    darkGray,
+    accentColor,
+    gray,
+    primaryColor,
+    unselectedWhite,
+    white,
+    disabledInputGray
+} from './colors';
 
 export const defaultTheme = {
     ...lightBaseTheme,
