@@ -2,7 +2,7 @@
 
 Bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-It configures and demonstrates:
+This boilerplate configures and demonstrates:
 
 - [Redux](http://redux.js.org/);
 - [React Router v4 and Redux React Router](https://github.com/ReactTraining/react-router);
@@ -16,12 +16,13 @@ It configures and demonstrates:
 ## Overview
 
 The `react-redux-starter` project is a single page React/Redux app.
-It relies that a server `express-starter` is running.
+It relies that an [express-starter](https://git.ng.bluemix.net/bluemix-garage-melbourne/express-starter) 
+server instance is running.
 The following diagram depicts how it all fits together:
 
 <img src="https://git.ng.bluemix.net/bluemix-garage-melbourne/react-redux-starter/raw/master/docs/Architectural%20Overview.jpg" alt="Architectural Overview" height="500px">
 
-The end user requests arrive at the `react-redux-starter` endpoint.
+The end user requests arrive at the `react-redux-starter` web server.
 The web user interface is packaged as static web content (html,css,js etc.) 
 and is served by the `react-redux-starter` web server. 
 The end user needs to load the web content just once, after which it 
@@ -30,7 +31,7 @@ executes in their browser.
 The web app running in the user's browser makes API calls to its server at the `/api` endpoint. 
 Since, the web app itself was downloaded from the `react-redux-starter` 
 endpoint there are no CORS security issues.
-The endpoint acts as a reverse proxy and transfers all API request 
+The `/api` endpoint acts as a reverse proxy and transfers all API request 
 to the `express-starter`.
 
 ## Development use
