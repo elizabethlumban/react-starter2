@@ -70,3 +70,7 @@ API_ENDPOINT='server-location' npm start
 ```
 
 Alternatively, we could use the `.env` to define such environment vars.
+
+In production, the server requires basic authentication and you need to specify the credentials
+via the environment variables `BASIC_AUTH_USER`, and `BASIC_AUTH_PASS`.
+If these variables are not present, the credentials are `admin`/`admin`.
