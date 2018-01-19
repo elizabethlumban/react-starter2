@@ -45,7 +45,8 @@
     "test-ci": "CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "start": "NODE_ENV=production node server.js",
-    "format": "prettier --write '*.@(js|json)' 'client/src/**/*.@(js|json)' '@(server|test)/**/*.@(js|json)'"
+    "format":
+      "prettier --write '*.@(js|json)' 'client/src/**/*.@(js|json)' '@(server|test)/**/*.@(js|json)'"
   },
   "engines": {
     "node": ">=8.9.3",

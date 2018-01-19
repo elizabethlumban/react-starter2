@@ -1,14 +1,5 @@
 const initialState = {
-    items: [
-        {
-            id: "1",
-            text: "Test"
-        },
-        {
-            id: "2",
-            text: "Test"
-        }
-    ]
+    items: [ ]
 };
 
 export default initialState;
