@@ -6,6 +6,7 @@
         "es6": true,
         "jest": true
     },
+    "parser": "babel-eslint",
     "plugins": ["react", "import", "jest"],
     "parserOptions": {
         "sourceType": "module",
