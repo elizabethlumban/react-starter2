@@ -1,0 +1,7 @@
+public/
+src/
+vscode/
+types/
+build/disciplines/raw-images/
+.git/
+node_modules/

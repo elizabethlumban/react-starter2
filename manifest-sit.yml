@@ -1,0 +1,10 @@
+applications:
+  - name: react-redux-starter-sit
+memory: 128M
+buildpack: sdk-for-nodejs
+host: react-redux-starter-sit
+timeout: 120
+env:
+  NODE_ENV: production
+  APPLICATION_ENVIRONMENT: staging
+  API_LOCATION: https://latrobe-bax-api-sit.au-syd.mybluemix.net/api

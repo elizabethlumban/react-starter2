@@ -1,0 +1,10 @@
+applications:
+  - name: react-redux-starter
+memory: 256M
+buildpack: sdk-for-nodejs
+host: react-redux-starter
+timeout: 120
+env:
+  NODE_ENV: production
+  APPLICATION_ENVIRONMENT: production
+  API_LOCATION: https://latrobe-bax-api.au-syd.mybluemix.net/api

@@ -1,4 +1,21 @@
 {
-  "printWidth": 100,
-  "singleQuote": true
+  "tabWidth": 2,
+  "useTabs": false,
+  "singleQuote": false,
+  "trailingComma": "all",
+  "printWidth": 120,
+  "overrides": [
+    {
+      "files": "*.js",
+      "options": {
+        "trailingComma": "es5"
+      }
+    },
+    {
+      "files": "*.yaml",
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
 }
