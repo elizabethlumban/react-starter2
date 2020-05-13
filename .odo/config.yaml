@@ -1,0 +1,14 @@
+kind: LocalConfig
+apiversion: odo.openshift.io/v1alpha1
+ComponentSettings:
+  Type: nodejs
+  SourceLocation: ./
+  SourceType: local
+  Ports:
+  - 3000/tcp
+  Application: app
+  Project: dev-eol1
+  Name: hello-react
+  Url:
+  - Name: hello-react-3000
+    Port: 3000
