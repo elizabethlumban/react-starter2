@@ -62,7 +62,8 @@
         "test-watch": "react-scripts test --env=jsdom",
         "eject": "react-scripts eject",
         "startold": "react-scripts start",
-        "start": "NODE_ENV=production NODE_TLS_REJECT_UNAUTHORIZED=0 node server.js",
+        "start": "NODE_ENV=production node ./server/server.js",
+        "startold ": "NODE_ENV=production NODE_TLS_REJECT_UNAUTHORIZED=0 node server.js",
         "cf-push": "yarn --ignore-engines && npm run build && cf push",
         "lint": "eslint './src/**/*.{tsx,ts}'",
         "lint-fix": "eslint './src/**/*.{tsx,ts}' --fix"

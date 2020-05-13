@@ -5,10 +5,14 @@ ComponentSettings:
   SourceLocation: ./
   SourceType: local
   Ports:
-  - 3000/tcp
+  - 8080/TCP
   Application: app
   Project: dev-eol1
-  Name: hello-react
+  Name: odo-react2
+  Envs:
+  - Name: API_LOCATION
+    Value: https://odo-api-8080-app-dev-eol1.ocp-sandbox-4312-2e9fdd63bc941193875efba99fa46e92-0000.au-syd.containers.appdomain.cloud/api
   Url:
-  - Name: hello-react-3000
-    Port: 3000
+  - Name: odo-react2-8080
+    Port: 8080
+    Secure: true
