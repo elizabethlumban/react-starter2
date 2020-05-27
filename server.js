@@ -6,23 +6,20 @@ const urljoin = require("url-join"); // eslint-disable-line
 const _ = require("lodash"); // eslint-disable-line
 const fs = require("fs"); // eslint-disable-line
 const cors = require("cors"); // eslint-disable-line
-//const isDev = require("./isDev");
-
-//var isDev = require("./isDev");
 
 // Load the config
 const server = process.env.API_LOCATION;
 
-/* const htmlLocation = path.join(__dirname, "build", "index.html");
+const htmlLocation = path.join(__dirname, "build", "index.html");
+console.log("htmlLocation...", htmlLocation);
+
+// Inject the runtime variables:
 const initialHtmlContent = fs.readFileSync(htmlLocation, "utf8");
 const htmlWithVariables = initialHtmlContent.replace(
   "%APPLICATION_ENVIRONMENT%",
   process.env.APPLICATION_ENVIRONMENT || "dev"
 );
-fs.writeFileSync(htmlLocation, htmlWithVariables); */
-
-const buildLocation = path.join(__dirname, "..", "build");
-const htmlLocation = path.join(__dirname, "..", "build", "index.html");
+fs.writeFileSync(htmlLocation, htmlWithVariables);
 
 // The app server
 const app = express();
@@ -31,7 +28,7 @@ const app = express();
 // Add a handler to inspect the req.secure flag (see
 // http://expressjs.com/api#req.secure). This allows us
 // to know whether the request was via http or https.
-app.enable("trust proxy");
+app.disable("trust proxy");
 app.use((req, res, next) => {
   if (req.secure) {
     next();
@@ -67,30 +64,43 @@ app.use("/api", (req, res) => {
 // Serve the static content
 app.use(express.static(path.join(__dirname, "build")));
 
-app.use((req, res, next) => {
-  const path = req.path;
-  if (req.method == "GET" && path && path !== "/" && !path.startsWith("/auth/") && !path.startsWith("/api/")) {
-    res.sendFile(htmlLocation);
-  } else {
-    next();
-  }
-});
-
 // Direct all requests to the main page so they can be handled by React Router
-/* app.get("/*", function(req, res) {
+app.get("/*", function(req, res) {
+  console.log("serving index.html");
   res.sendFile(htmlLocation);
 });
- */
+
 // Let's start ...
-const port = process.env.PORT || 3000;
+/* const port = process.env.PORT || 3000;
 app.listen(port, err => {
   if (err) {
     console.log(`App crashed: ${err}`);
   } else {
-    console.log(`Listening on port13 ${port}`);
+    console.log(`Listening on port ${port}`);
   }
 });
+ */
 
-function isDev() {
-  return ["dev", "development"].includes(process.env.NODE_ENV);
-}
+var https = require("https");
+var https_port = settings.local_port || 3000;
+
+var http = require("http");
+var http_port = 3001;
+
+//if (settings.local) {
+https
+  .createServer(
+    {
+      key: fs.readFileSync("key.pem"),
+      cert: fs.readFileSync("cert.pem"),
+    },
+    app
+  )
+  .listen(https_port);
+
+console.log("server starting on https://localhost:" + https_port);
+/*}  else {
+  app.listen(http_port, function() {
+    console.log("server starting on http://localhost:" + http_port);
+  });
+} */

@@ -8,7 +8,7 @@ type ErrorAction = (error: any) => void;
 const logout: LogoutAction = () => console.log("Logout");
 const onUnexpectedError: ErrorAction = error => console.log(error);
 
-const apiUrlBase = "/api";
+const apiUrlBase = "";
 
 export interface IFormValues {
   [key: string]: string | File | Blob;
@@ -41,7 +41,7 @@ async function baseExecFetch(
   body?: any,
   canError = false,
   interactive = true,
-  retrying = false
+  retrying = false,
 ): Promise<any> {
   if (body) {
     body = JSON.stringify(body);
@@ -54,7 +54,7 @@ async function baseExecFetch(
     const res = await fetch(endpointUrl, {
       body,
       headers: { "content-type": "application/json" },
-      method
+      method,
     });
 
     if (!res.ok) {
@@ -63,15 +63,7 @@ async function baseExecFetch(
       if (res.status === 401) {
         if (!retrying && payload.moreInformation === "Token is invalid") {
           // ISAM issue with introspect do a single retry
-          return await baseExecFetch(
-            url,
-            method,
-            process,
-            body,
-            canError,
-            interactive,
-            true
-          );
+          return await baseExecFetch(url, method, process, body, canError, interactive, true);
         }
 
         logout();
@@ -113,13 +105,7 @@ const parseResponseBody = async (res: Response) => {
   }
 };
 
-const execFetch = (
-  url: string,
-  method: METHOD_TYPE,
-  body?: any,
-  canError = false,
-  interactive = true
-): Promise<any> =>
+const execFetch = (url: string, method: METHOD_TYPE, body?: any, canError = false, interactive = true): Promise<any> =>
   baseExecFetch(url, method, parseResponseBody, body, canError, interactive);
 
 export async function get(url: string, canError = false, interactive = true) {
@@ -142,23 +128,14 @@ export async function patch(url: string, body: any = {}, canError = false) {
   return execFetch(url, "PATCH", body, canError);
 }
 
-export const apiCall = (url: string, method: METHOD_TYPE = "GET", body?: any) =>
-  execFetch(url, method, body);
+export const apiCall = (url: string, method: METHOD_TYPE = "GET", body?: any) => execFetch(url, method, body);
 
-export const systemApiCall = (
-  url: string,
-  method: METHOD_TYPE = "GET",
-  body?: any
-) => baseExecFetch(url, method, res => res.json(), body, false, true);
+export const systemApiCall = (url: string, method: METHOD_TYPE = "GET", body?: any) =>
+  baseExecFetch(url, method, res => res.json(), body, false, true);
 
 export type ProgressFunction = (pe: ProgressEvent) => any;
 
-export function submitForm(
-  url: string,
-  fields: IFormValues,
-  headers: any,
-  onprogress: ProgressFunction | null
-) {
+export function submitForm(url: string, fields: IFormValues, headers: any, onprogress: ProgressFunction | null) {
   // FormData represents the payload of the form
   const form = new FormData();
 
@@ -175,11 +152,7 @@ export function submitForm(
 
   // Set up the the request headers.
   // Skip "content-type" - it messes up xhr. See - http://www.olioapps.com/blog/formdata-fetch-gotchas/
-  Object.keys(headers).forEach(
-    h =>
-      h.toLowerCase() !== "content-type" &&
-      xhrRequest.setRequestHeader(h, headers[h])
-  );
+  Object.keys(headers).forEach(h => h.toLowerCase() !== "content-type" && xhrRequest.setRequestHeader(h, headers[h]));
 
   // Set up the callback for the upload progress
   xhrRequest.upload.onprogress = onprogress || (() => null);

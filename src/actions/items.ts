@@ -4,5 +4,5 @@ export const GET_ITEMS = "items/GET";
 
 export const getItems = () => ({
   type: GET_ITEMS,
-  payload: get("/item"),
+  payload: get("/api/item"),
 });

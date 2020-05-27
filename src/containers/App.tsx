@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { IState } from "store/types";
 import { getItems } from "../actions/items";
 import Spinner from "components/spinner";
+import HomePage from "containers/Homepage";
 
 export const App = () => {
   const loading = useSelector((state: IState) => state.loading);
@@ -22,6 +23,7 @@ export const App = () => {
         </div>
       )}
 
+      <HomePage />
       <Spinner loading={loading} />
       {!loading && items.map((e, i) => <p key={i}>{e.name}</p>)}
     </div>

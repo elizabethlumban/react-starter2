@@ -3,37 +3,28 @@ const path = require("path"); // eslint-disable-line
 const helmet = require("helmet"); // eslint-disable-line
 const request = require("request"); // eslint-disable-line
 const urljoin = require("url-join"); // eslint-disable-line
-const _ = require("lodash"); // eslint-disable-line
-const fs = require("fs"); // eslint-disable-line
-const cors = require("cors"); // eslint-disable-line
-const isDev = require("./isDev");
+const cors = require("cors");
 
-//var isDev = require("./isDev");
-
-// Load the config
-const server = process.env.API_LOCATION;
-
-/* const htmlLocation = path.join(__dirname, "build", "index.html");
-const initialHtmlContent = fs.readFileSync(htmlLocation, "utf8");
-const htmlWithVariables = initialHtmlContent.replace(
-  "%APPLICATION_ENVIRONMENT%",
-  process.env.APPLICATION_ENVIRONMENT || "dev"
-);
-fs.writeFileSync(htmlLocation, htmlWithVariables); */
+const dotenv = require("dotenv");
 
 const buildLocation = path.join(__dirname, "..", "build");
 const htmlLocation = path.join(__dirname, "..", "build", "index.html");
 
+// Load the config
+dotenv.config();
+
+// Get the location of the API
+const apiServer =
+  "https://odo-api-8080-app-dev-eol2.ocp-sandbox-4312-2e9fdd63bc941193875efba99fa46e92-0000.au-syd.containers.appdomain.cloud/api";
+
+const isDev = "production";
+
 // The app server
 const app = express();
-
-// Require HTTPS
-// Add a handler to inspect the req.secure flag (see
-// http://expressjs.com/api#req.secure). This allows us
-// to know whether the request was via http or https.
+app.set("trust proxy", 1); // trust first proxy
 app.enable("trust proxy");
 app.use((req, res, next) => {
-  if (req.secure || isDev()) {
+  if (req.secure || isDev) {
     next();
   } else {
     // request was via http, so redirect to https
@@ -41,32 +32,13 @@ app.use((req, res, next) => {
   }
 });
 
-// Guard the app ...
+// Common middleware
 app.use(helmet());
-
-// Allow CORS
 app.use(cors());
 
-// Proxy the API
-app.use("/api", (req, res) => {
-  var url = urljoin(server, req.url);
-
-  // Options to add API Connect headers
-  var requestOptions = {
-    url,
-    headers: {},
-  };
-
-  try {
-    req.pipe(request(requestOptions)).pipe(res);
-  } catch (e) {
-    console.log(e);
-  }
-});
-
-// Serve the static content
-app.use(express.static(path.join(__dirname, "build")));
-
+// Serve the static content before any authentication
+app.use(express.static(buildLocation));
+// Direct all left over requests to the main page so they can be handled by React Router
 app.use((req, res, next) => {
   const path = req.path;
   if (req.method == "GET" && path && path !== "/" && !path.startsWith("/auth/") && !path.startsWith("/api/")) {
@@ -76,17 +48,23 @@ app.use((req, res, next) => {
   }
 });
 
-// Direct all requests to the main page so they can be handled by React Router
-/* app.get("/*", function(req, res) {
-  res.sendFile(htmlLocation);
+// Proxy the API
+app.use("/api", (req, res, next) => {
+  const url = urljoin(apiServer, req.url);
+
+  var requestOptions = { url, headers: {} };
+
+  try {
+    req.pipe(request(requestOptions)).pipe(res);
+  } catch (e) {
+    console.log(e);
+  }
 });
- */
-// Let's start ...
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 app.listen(port, err => {
   if (err) {
     console.log(`App crashed: ${err}`);
   } else {
-    console.log(`Listening on port5 ${port}`);
+    console.log(`Listening on port 77${port}`);
   }
 });
