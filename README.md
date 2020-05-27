@@ -1,4 +1,5 @@
-This is a react starter with redux. This is deployed in OCP 4.3 using odo.
+This is a react starter with redux. This is deployed in OCP 4.3 using odo. This calls the backend code from this repo
+https://github.com/elizabethlumban/odo-api2.
 
 ## Prerequisite
 
