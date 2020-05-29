@@ -22,3 +22,7 @@ odo url create --secure
 odo config set --env API_LOCATION=<url of the api> --env NODE_ENV=production
 odo push
 ```
+
+
+## dev
+Need to run a separate backend api 

@@ -8,8 +8,7 @@ const proxy = require("http-proxy-middleware"); // eslint-disable-line
 module.exports = function(app) {
   app.use(
     proxy("/api", {
-      target:
-        "https://odo-api-8080-app-dev-eol2.ocp-sandbox-4312-2e9fdd63bc941193875efba99fa46e92-0000.au-syd.containers.appdomain.cloud/api",
+      target: process.env.API_LOCATION
     })
   );
 };
