@@ -1,16 +1,9 @@
 describe('The Home Page', () => {
     it('successfully loads', () => {
-        cy.server({
-            // whitelist: (xhr) => { return true}
-        })
-        cy.route({
-            url: 'http://localhost:3001/api/item'
-        }).as('getItems')
+        cy.server()
         cy.visit('/')
-        
-        // cy.wait(['@getItems']) //doesn't work because of proxy?
-        
-
-        cy.contains('home')
+        cy.contains('Reload').click()
+        cy.contains('Home')
+            .should('have.css', 'font-family').and('match', /^Roboto,/)
     })
   })
